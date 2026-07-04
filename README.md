@@ -1,4 +1,4 @@
-# cloud-itonami-9529
+# cloud-itonami-isic-9529
 
 Open Business Blueprint for **ISIC Rev.5 9529**: Repair of other personal and household goods.
 

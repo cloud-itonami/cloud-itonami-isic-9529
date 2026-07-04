@@ -2,7 +2,7 @@
 
 ## Classification
 
-- Repository: `cloud-itonami-9529`
+- Repository: `cloud-itonami-isic-9529`
 - ISIC Rev.5: `9529`
 - Activity: repair of other personal and household goods not elsewhere classified (e.g. watches, jewelry, bicycles)
 - Social impact: community access, data sovereignty, transparent audit

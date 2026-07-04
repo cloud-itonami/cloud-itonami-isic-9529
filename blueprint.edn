@@ -1,4 +1,4 @@
-{:itonami.blueprint/id "cloud-itonami-9529"
+{:itonami.blueprint/id "cloud-itonami-isic-9529"
  :itonami.blueprint/name "Repair of other personal and household goods"
  :itonami.blueprint/isic-rev5 "9529"
  :itonami.blueprint/domain :services/repair-other-personal-goods

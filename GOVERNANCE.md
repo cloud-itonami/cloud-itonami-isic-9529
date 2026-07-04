@@ -1,6 +1,6 @@
 # Governance
 
-`cloud-itonami-9529` is an OSS open-business blueprint for repair of other personal and household goods not elsewhere classified (e.g. watches, jewelry, bicycles).
+`cloud-itonami-isic-9529` is an OSS open-business blueprint for repair of other personal and household goods not elsewhere classified (e.g. watches, jewelry, bicycles).
 Governance covers both the capability layer and the operator model.
 
 ## Maintainers
