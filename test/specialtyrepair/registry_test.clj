@@ -1,5 +1,5 @@
 (ns specialtyrepair.registry-test
-  (:require [clojure.test :refer [deftest is]]
+  (:require [clojure.test :refer [deftest is testing]]
             [specialtyrepair.registry :as r]))
 
 ;; ----------------------------- parts-cost-matches-claim? -----------------------------
@@ -63,3 +63,33 @@
     (is (= 2 (count hist2)))
     (is (= "JPN-RPR-000000" (get-in hist2 [0 "record_id"])))
     (is (= "JPN-RPR-000001" (get-in hist2 [1 "record_id"])))))
+
+;; ---------------------------------------------------------------------------
+;; Money is compared at money precision, not at double precision
+;; ---------------------------------------------------------------------------
+
+(deftest an-exhaustive-sweep-finds-no-correct-claim-rejected
+  (testing "`(== (double claimed) (* (double qty) (double price)))` rejected
+            CORRECT totals -- 14,213 of 68,568 combinations (20.7%) on this
+            exact quantity x unit-price shape"
+    (let [bad (for [q (range 1 25)
+                    c (range 1 20000 7)
+                    :let [price (/ c 100.0) truth (/ (* q c) 100.0)]
+                    :when (not (r/parts-cost-matches-claim?
+                                {:parts-quantity q :parts-unit-price price
+                                 :claimed-parts-cost truth}))]
+                [q price truth])]
+      (is (empty? bad) (str "false rejections: " (count bad) " e.g. " (first bad))))))
+
+(deftest a-genuinely-wrong-claim-is-still-caught
+  (testing "rounding to money precision must not blunt the check"
+    (is (not (r/parts-cost-matches-claim? {:parts-quantity 3 :parts-unit-price 29.99
+                                           :claimed-parts-cost 89.96})))
+    (is (not (r/parts-cost-matches-claim? {:parts-quantity 1 :parts-unit-price 10.00
+                                           :claimed-parts-cost 10.01})))))
+
+(deftest a-missing-or-non-numeric-amount-never-matches
+  (testing "un-verifiable is not the same as correct, and not a crash"
+    (is (not (r/parts-cost-matches-claim? {:parts-quantity 3 :parts-unit-price 29.99})))
+    (is (not (r/parts-cost-matches-claim? {:parts-quantity 3 :parts-unit-price "29.99"
+                                           :claimed-parts-cost 89.97})))))
