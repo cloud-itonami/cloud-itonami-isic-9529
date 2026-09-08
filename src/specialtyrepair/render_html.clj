@@ -60,7 +60,7 @@
   Usage: `clojure -M:dev:render-html [out-file]`
   (default `docs/samples/operator-console.html`)."
   (:require [clojure.java.io :as io]
-            [clojure.string :as str]
+            [kotoba.lang.text :as str]
             [langgraph.graph :as g]
             [specialtyrepair.facts :as facts]
             [specialtyrepair.governor :as governor]
@@ -273,7 +273,7 @@
   attribution under a different key."
   [m]
   (when (map? m)
-    (seq (sort (filter #(str/includes? (str/lower-case (key-name %)) "approv")
+    (seq (sort (filter #(str/includes? (str/lower (key-name %)) "approv")
                        (map key-name (keys m)))))))
 
 (def ^:private effect->register
