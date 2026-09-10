@@ -128,7 +128,7 @@ itonami-isic-6492`'s real status-lifecycle bug (ADR-2607071320).
 `specialtyrepair.store/Store` is implemented by both `MemStore`
 (atom-backed, default for dev/tests/demo) and `DatomicStore`
 (`langchain.db`-backed), proven to satisfy the same contract in
-`test/specialtyrepair/store_contract_test.clj` -- the same seam every
+`test/specialtyrepair/store_contract_test.kotoba` -- the same seam every
 sibling actor uses so swapping the SSoT backend is a configuration
 change, not a rewrite.
 
@@ -197,7 +197,7 @@ completing a repair or auto-returning an item).
   subject-fact and assessor-credential checks), grep-verified absent
   from every prior sibling before the claim was finalized.
 - `MemStore` ‖ `DatomicStore` parity is proven by
-  `test/specialtyrepair/store_contract_test.clj`, the same `:db-api`-
+  `test/specialtyrepair/store_contract_test.kotoba`, the same `:db-api`-
   driven swap pattern every sibling actor uses.
 - 41 tests / 191 assertions pass; lint is clean; the demo
   (`clojure -M:dev:run`) walks one clean dual-actuation lifecycle plus
