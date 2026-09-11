@@ -1,5 +1,5 @@
 (ns specialtyrepair.sim
-  "Demo driver -- `clojure -M:dev:run`. Walks a clean ticket through
+  "Demo driver -- `kbb -M:dev:run`. Walks a clean ticket through
   intake -> jurisdiction assessment -> post-repair safety screening ->
   hallmark-integrity screening -> repair completion (escalate/approve/
   commit) -> item return (escalate/approve/commit), then shows HARD-
