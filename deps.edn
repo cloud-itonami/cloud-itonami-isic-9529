@@ -22,9 +22,9 @@
   :dev {:override-deps
         {io.github.kotoba-lang/langchain
          {:local/root "../../kotoba-lang/langchain"}}}
-  ;; clojure -M:dev:run  -> drive the demo through one OperationActor
+  ;; kbb -M:dev:run  -> drive the demo through one OperationActor
   :run {:main-opts ["-m" "specialtyrepair.sim"]}
-  ;; clojure -M:dev:render-html [out-file] -> regenerate
+  ;; kbb -M:dev:render-html [out-file] -> regenerate
   ;; docs/samples/operator-console.html by RUNNING the real actor. Throws
   ;; (and writes nothing) unless every hold rule declared in the actor's own
   ;; source was actually raised by the real governor, and every human approval
