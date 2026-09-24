@@ -1,0 +1,31 @@
+;; What this vertical's robot physically does, declared for
+;; kotoba.robotics.process (kotoba-lang/robotics). `kbb -M:dev:physics` runs it.
+;;
+;; README "Robotics premise": a workbench robot assists fine-motor watch,
+;; jewelry and bicycle repair (ISIC 9529), gated by the Repair Shop Governor.
+;; Its physical work here is the bicycle side: lifting the customer's bicycle
+;; (including e-bikes) into the repair-stand clamp, and proof-testing a
+;; sample of the replacement stainless spokes before a wheel is rebuilt.
+;;
+;; Every number without a cited source is marked `estimate` in its :basis.
+;; Replacing an estimate with a sourced value is this bot's growth work.
+{:physics/schema "itonami.physical-ai.spec.v1"
+ :repo "cloud-itonami/cloud-itonami-isic-9529"
+ :cases
+ [{:id :bicycle-into-repair-stand
+   :kind :manipulator
+   :procedure "arm lifts the bicycle by its seat post from the floor into the repair-stand clamp"
+   :params {:l1-m 0.55 :l2-m 0.50 :m1-kg 6.0 :m2-kg 4.5
+            :from [0.55 0.30] :to [0.35 0.85] :duration-s 3.0 :steps 500}
+   :sweep {:param :payload-kg :values [8.0 11.0 14.0 18.0 22.0 26.0]}
+   :quantity :peak-tau1-nm
+   :limit {:max 200.0 :basis "estimate: continuous shoulder torque of a 15 kg-payload-class industrial arm; the sweep runs from a road bike to a heavy e-bike"}
+   :boundary {:lo 1.0 :hi 60.0}}
+  {:id :spoke-proof-test
+   :kind :material
+   :procedure "robot pulls a sampled replacement stainless spoke in tension and records its 0.2 % offset yield load, for each spoke gauge in stock"
+   :params {:length-m 0.10 :youngs-modulus-pa 193.0e9 :yield-stress-pa 1100.0e6
+            :hardening-pa 2.0e9 :density-kg-m3 8000.0 :max-force-n 6000.0}
+   :sweep {:param :area-m2 :values [1.767e-6 2.545e-6 3.142e-6 4.301e-6]}
+   :quantity :yield-force-n
+   :limit {:min 2400.0 :basis "estimate: twice a typical built-wheel spoke tension of ~1.2 kN; 1100 MPa is an estimate for cold-drawn stainless spoke wire; the sweep is 1.5/1.8/2.0/2.34 mm wire diameters"}}]}
